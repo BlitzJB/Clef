@@ -21,3 +21,7 @@ def __sw():
 @app.route('/manifest.json')
 def __manifest():
     return send_from_directory('..', 'manifest.json')
+
+@app.route('/keep_alive')
+def __alive():
+  return 'OK'
