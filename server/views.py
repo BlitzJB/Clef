@@ -10,6 +10,10 @@ def __index():
 def __song():
     return render_template('song.html')
 
+@app.route('/search')
+def __search():
+    return render_template('search.html')
+
 @app.route('/sw.js')
 def __sw():
     return send_from_directory('..', 'sw.js')
