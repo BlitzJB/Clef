@@ -9,8 +9,30 @@
     <link rel="stylesheet" href="../static/css/searchbar.css">
     <link rel="stylesheet" href="../static/css/common.css">
 
+    <link rel="manifest" href="../../manifest.json">
 </head>
 <body>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOMContentLoaded');
+            if ('serviceWorker' in navigator) {
+                console.log('CLIENT: service worker registration in progress.');
+                navigator.serviceWorker.register('../../sw.js')
+                    .then(function(registration) {
+                        console.log('Service Worker Registered');
+                    })
+                    .catch(function(err) {
+                        console.log('Service Worker Failed', err);
+                    });
+            } else {
+                console.log('CLIENT: service worker is not supported.');
+            }
+        });
+
+    </script>
+
     <section class="search">
         <form action="search" id="search-form"class="search__form">
             <input type="text" id="search-input" name="q">
