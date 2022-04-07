@@ -1,3 +1,13 @@
+body, html, * {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
 .btn-circle {
     width: 60px;
     height: 60px;
@@ -7,7 +17,9 @@
     line-height: 1.428571429;
     border-radius: 15px;
   }
-  li {list-style: none;}
+  
+
+li {list-style: none;}
 
   a {
       color: black;
