@@ -19,8 +19,10 @@ export class Player {
             prev: document.querySelector('#prev'),
             next: document.querySelector('#next'),
             play: document.querySelector('#play'),
-            loop: document.querySelector('#loop'),
-            recommendations: document.querySelector('#recommendations')
+            recommendations: document.querySelector('#recommendations'),
+            progressBar: document.querySelector('#prog'),
+            currentTime: document.querySelector('#currenttimestamp'),
+            totalTime: document.querySelector('#totaltimestamp')
         }
 
         this.UI.prev.addEventListener('click', () => {
@@ -34,11 +36,18 @@ export class Player {
         this.UI.play.addEventListener('click', () => {
             if (this.ispaused) {
                 this.play();
-                this.UI.play.innerHTML = '⏸';
+                this.UI.play.innerHTML = '<button class="btn btn-link btn-circle" style="border-radius: 50px;background: var(--bs-white);border: .1px solid black;" type="button"><i class="fa fa-pause" style="color: var(--bs-gray-900);font-size: 30px;"></i></button>';
             } else {
                 this.pause();
-                this.UI.play.innerHTML = '▶️';
+                this.UI.play.innerHTML = '<button class="btn btn-link btn-circle" style="border-radius: 50px;background: var(--bs-white);border: .1px solid black;" type="button"><i class="fa fa-play" style="color: var(--bs-gray-900);font-size: 30px;margin-left: 6px;"></i></button>';
             }
+        })
+
+        this.UI.progressBar.addEventListener('change', (e) => {
+            const percentage = e.target.value;
+            const totalTime = this.audio.duration;
+            const currentTime = (percentage / 100) * totalTime;
+            this.audio.currentTime = currentTime;
         })
 
         this.cache = {
@@ -114,6 +123,29 @@ export class Player {
         this.audio.addEventListener('ended', () => {
             this.handleEnd();
         })
+
+        this.audio.addEventListener('playing', () => {
+            this.ispaused = false;
+            this.UI.play.innerHTML = '<button class="btn btn-link btn-circle" style="border-radius: 50px;background: var(--bs-white);border: .1px solid black;" type="button"><i class="fa fa-pause" style="color: var(--bs-gray-900);font-size: 30px;"></i></button>';
+        })
+
+        function secondsToSplitString(seconds) {
+            let minutes = Math.floor(seconds / 60);
+            let secondsLeft = seconds % 60;
+            secondsLeft = Math.round(secondsLeft)
+            secondsLeft = secondsLeft < 10 ? `0${secondsLeft}` : secondsLeft;
+            return `${minutes}:${secondsLeft}`
+        }
+
+        this.audio.addEventListener('timeupdate', () => {
+            const currentTime = this.audio.currentTime;
+            const totalTime = this.audio.duration;
+            const percentage = Math.ceil((currentTime / totalTime) * 100);
+            this.UI.progressBar.value = percentage;
+            if (this.UI.currentTime !== secondsToSplitString(currentTime)) {
+                this.UI.currentTime.innerHTML = secondsToSplitString(currentTime);
+            }
+        })
     }
 
 
@@ -150,7 +182,9 @@ export class Player {
             this.audio.load();
         }
         this.updateUI(this.recom[this.cache.current.index]);
-        
+        window.history.pushState("", "", `?id=${this.recom[this.cache.current.index].id}`);
+        this.cacheLastPlayed(this.recom[this.cache.current.index]);
+
         this.downloadIndex(this.cache.next.index, (blobUrl) => {
             this.cache.next.blobUrl = blobUrl;  
         })
@@ -179,12 +213,17 @@ export class Player {
                 this.audio.load();
             })
         }
+
+        window.history.pushState("", "", `?id=${this.recom[this.cache.current.index].id}`);
         this.updateUI(this.recom[this.cache.current.index]);
 
         this.cache.last = {
             index: this.cache.current.index - 1,
             blobUrl: null
         }
+
+        this.cacheLastPlayed(this.recom[this.cache.current.index]);
+
         this.downloadIndex(this.cache.last.index, (blobUrl) => {
             this.cache.last.blobUrl = blobUrl;
         })
@@ -207,13 +246,15 @@ export class Player {
             index: index + 1,
             blobUrl: null
         }
-
+        console.log([index, this.recom[index]])
         this.downloadIndex(this.cache.current.index, (blobUrl) => {
             this.cache.current.blobUrl = blobUrl;
             this.audio.src = this.cache.current.blobUrl;
             this.audio.load();
             this.updateUI(this.recom[index]);
         })
+        window.history.pushState("", "", `?id=${this.recom[this.cache.current.index].id}`);
+        this.cacheLastPlayed(this.recom[this.cache.current.index]);
         this.downloadIndex(this.cache.next.index, (blobUrl) => {
             this.cache.next.blobUrl = blobUrl;
         })
@@ -223,6 +264,7 @@ export class Player {
         this.UI.songTitle.innerHTML = songData.title;
         this.UI.songArtist.innerHTML = songData.artists.join(', ');
         this.UI.thumbnail.src = songData.thumbnail.large;
+        this.UI.totalTime.innerHTML = songData.length
     }
 
     trimString(string) {
@@ -234,20 +276,36 @@ export class Player {
     }
 
     loadRecommendationsIntoUI() {
-        this.UI.recommendations.innerHTML = '';
         this.recom.forEach((song, index) => {
             let li = document.createElement('li');
-            li.innerHTML = `<img src="${song.thumbnail.mini}" class="recom_thumbnail">
-                            <div class="song-info">
-                                <h3>${this.trimString(song.title)}</h3>
-                                <h4>${this.trimString(song.artists.join(', '))}</h4>
-                            </div>`;
+            li.innerHTML = `<div class="row" style="padding: 0px;border-color: var(--bs-body-color);margin-bottom: 14px;">
+                            <div class="col-auto"><img src="${song.thumbnail.mini}" width="60"></div>
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col-10" style="padding-right: 0;">
+                                        <h5>${this.trimString(song.title)}</h5>
+                                    </div>
+                                    <div class="col-2 text-end align-self-center" style="padding: 0;"><i class="fa fa-play fs-4 text-start go" style="color: var(--bs-gray-dark);"></i></div>
+                                    <div class="col-10" style="padding-right: 0;">
+                                        <p style="font-size: 13px;">${this.trimString(song.artists.join(', '))}</p>
+                                    </div>
+                                    <div class="col-2" style="padding: 0;">
+                                        <p class="text-end" style="padding: 0;">${song.length}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
             li.classList.add('recommendation');
             li.addEventListener('click', () => {
                 this.handlePlayFromList(index);
             })
             this.UI.recommendations.appendChild(li);
         })
+ 
+    }
+
+    cacheLastPlayed(songData) {
+        localStorage.lastSong = JSON.stringify(songData);
     }
 
 }
