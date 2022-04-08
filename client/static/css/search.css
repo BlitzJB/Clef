@@ -29,3 +29,16 @@ a {
 .result:focus .go {
     opacity: 1;
 }
+
+.nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 5vw;
+    margin-right: 5vw;
+}
+
+.search-bar {
+    width: 75vw;
+}
