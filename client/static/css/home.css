@@ -1,3 +1,5 @@
+@import url('vars.css');
+
 body, html, * {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -5,4 +7,66 @@ body, html, * {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+body {
+    background-image: url('../background.png');
+    background-blend-mode: multiply;
+    background-repeat: repeat;
+    background-color: var(--level0);
+    color: var(--text);
+    overflow-x: hidden;
+
+}
+
+.action__outer {
+    padding: 12px;
+    background-color: var(--level1);
+}
+
+.action__title {
+    margin-bottom: 3vh;
+}
+
+.minicard-action {
+    padding: 0;
+    padding-right: 20px;
+}
+
+.minicard-action i {
+    margin-top: 15px;
+    color: transparent;
+    transition: color 0.1s ease-in-out;
+}
+
+input {
+    background-color: transparent;
+    border: 1px solid var(--primary);
+    padding: 15px 15px;
+    border-radius: 5px;
+    color: var(--text);
+}
+
+input:focus {
+    outline: none;
+}
+
+input::placeholder {
+    color: var(--text);
+}
+
+.action__outer:hover i {
+    color: var(--primary);
+}
+
+.action__outer:focus-within i {
+    color: var(--primary);
+}
+
+#lastsong .action__outer {
+    padding-bottom: 0; margin-bottom: 0;
+}
+
+.action:hover {
+    cursor: pointer;
 }

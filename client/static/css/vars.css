@@ -1,0 +1,8 @@
+:root {
+    --primary: rgb(174, 202, 55);
+    --secondary: rgb(5, 22, 53);
+    --level0: rgb(20, 20, 20);
+    --level1: rgba(25, 25, 25, 0.6);
+    --level2: rgb(60, 60, 60);
+    --text: rgb(248, 236, 203);
+}

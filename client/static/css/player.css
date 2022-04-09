@@ -1,3 +1,5 @@
+@import url('../css/vars.css');
+
 body, html, * {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -7,6 +9,16 @@ body, html, * {
     user-select: none;
 }
 
+body {
+    background-image: url('../background.png');
+    background-blend-mode: multiply;
+    background-repeat: repeat;
+    background-color: var(--level0);
+    color: var(--text);
+    width: 100vw;
+    overflow-x: hidden;
+    
+}
 
 .btn-circle {
     width: 60px;
@@ -22,11 +34,11 @@ body, html, * {
 li {list-style: none;}
 
   a {
-      color: black;
+      color: var(--text);
       text-decoration: none;
   }
   a:hover {
-      color: black;
+      color: var(--text);
       text-decoration: none;
   }
 
@@ -41,7 +53,28 @@ li {list-style: none;}
 
 .go {
     opacity: 0;
+    color: var(--primary);
     transition: opacity 0.2s ease-in-out;
+}
+
+.recommendation {
+    padding: 20px;
+    padding-bottom: 5px;
+    padding-right: 35px;
+    border-radius: 15px;
+}
+
+.recommendation:hover {
+    background-color: rgba(188, 188, 188, 0.1);
+}
+.recommendation:focus {
+    background-color: rgba(188, 188, 188, 0.1);
+}
+
+.player-main {
+    padding: 5vw;
+    background-color: rgba(25, 25, 25, 0.6);
+    border-radius: 15px;
 }
 
 .recommendation:hover .go {
@@ -56,8 +89,11 @@ li {list-style: none;}
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-left: 5vw;
-    margin-right: 5vw;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    padding-top: 5vw;
+    padding-bottom: 2vw;
+    background-color: var(--level1);
 }
 
 .search-bar {

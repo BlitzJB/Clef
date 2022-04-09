@@ -36,10 +36,10 @@ export class Player {
         this.UI.play.addEventListener('click', () => {
             if (this.ispaused) {
                 this.play();
-                this.UI.play.innerHTML = '<button class="btn btn-link btn-circle" style="border-radius: 50px;background: var(--bs-white);border: .1px solid black;" type="button"><i class="fa fa-pause" style="color: var(--bs-gray-900);font-size: 30px;"></i></button>';
+                this.UI.play.innerHTML = '<div class="col fs-4 text-center align-self-center" id="play"><button class="btn btn-link btn-circle" style="border-radius: 50px;background: var(--secondary );border: .1px solid var(--primary);" type="button"><i class="fa fa-pause" style="color: var(--primary);font-size: 30px;margin-left: 0px;"></i></button></div>';
             } else {
                 this.pause();
-                this.UI.play.innerHTML = '<button class="btn btn-link btn-circle" style="border-radius: 50px;background: var(--bs-white);border: .1px solid black;" type="button"><i class="fa fa-play" style="color: var(--bs-gray-900);font-size: 30px;margin-left: 6px;"></i></button>';
+                this.UI.play.innerHTML = '<div class="col fs-4 text-center align-self-center" id="play"><button class="btn btn-link btn-circle" style="border-radius: 50px;background: var(--secondary );border: .1px solid var(--primary);" type="button"><i class="fa fa-play" style="color: var(--primary);font-size: 30px;margin-left: 6px;"></i></button></div>';
             }
         })
 
@@ -126,7 +126,7 @@ export class Player {
 
         this.audio.addEventListener('playing', () => {
             this.ispaused = false;
-            this.UI.play.innerHTML = '<button class="btn btn-link btn-circle" style="border-radius: 50px;background: var(--bs-white);border: .1px solid black;" type="button"><i class="fa fa-pause" style="color: var(--bs-gray-900);font-size: 30px;"></i></button>';
+            this.UI.play.innerHTML = '<div class="col fs-4 text-center align-self-center" id="play"><button class="btn btn-link btn-circle" style="border-radius: 50px;background: var(--secondary );border: .1px solid var(--primary);" type="button"><i class="fa fa-pause" style="color: var(--primary);font-size: 30px;margin-left: 0px;"></i></button></div>';
         })
 
         function secondsToSplitString(seconds) {
@@ -278,14 +278,14 @@ export class Player {
     loadRecommendationsIntoUI() {
         this.recom.forEach((song, index) => {
             let li = document.createElement('li');
-            li.innerHTML = `<div class="row" style="padding: 0px;border-color: var(--bs-body-color);margin-bottom: 14px;">
+            li.innerHTML = `<div class="row" style="padding: 0px;border-color: var(--bs-body-color)">
                             <div class="col-auto"><img src="${song.thumbnail.mini}" width="60"></div>
                             <div class="col">
                                 <div class="row">
                                     <div class="col-10" style="padding-right: 0;">
                                         <h5>${this.trimString(song.title)}</h5>
                                     </div>
-                                    <div class="col-2 text-end align-self-center" style="padding: 0;"><i class="fa fa-play fs-4 text-start go" style="color: var(--bs-gray-dark);"></i></div>
+                                    <div class="col-2 text-end align-self-center" style="padding: 0;"><i class="fa fa-play fs-4 text-start go"></i></div>
                                     <div class="col-10" style="padding-right: 0;">
                                         <p style="font-size: 13px;">${this.trimString(song.artists.join(', '))}</p>
                                     </div>

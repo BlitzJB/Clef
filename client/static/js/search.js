@@ -41,7 +41,7 @@ function loadSearchResults() {
                             <div class="col-10" style="padding-right: 0;">
                                 <h5>${trimString(item.title)}</h5>
                             </div>
-                            <div class="col-2 text-end align-self-center" style="padding: 0;"><i class="fa fa-play fs-4 text-start go" style="color: var(--bs-gray-dark);"></i></div>
+                            <div class="col-2 text-end align-self-center" style="padding: 0;"><i class="fa fa-play fs-4 text-start go"></i></div>
                             <div class="col-10" style="padding-right: 0;">
                                 <p style="font-size: 13px;">${trimString(item.artists.join(', '))}</p>
                             </div>

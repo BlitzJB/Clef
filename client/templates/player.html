@@ -16,17 +16,10 @@
 
     <link rel="stylesheet" href="../static/css/player.css">
 
-
-    
-
 </head>
 
 <body>
-    <div class="row">
-        <div class="col-md-12" style="height: 12px;">
-            <div></div>
-        </div>
-    </div>
+
     <div class="nav">
         <a href="/"><div class=" text-center align-self-center" style="cursor:pointer"><i class="fa fa-long-arrow-left"></i></div></a>
         <div class=" text-center" style="padding: 0;">
@@ -47,9 +40,9 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-8 offset-2">
+        <div class="col-8 offset-2 player-main">
             <div class="row">
-                <div class="col text-center"><img class="img-thumbnail img-fluid border-dark track__thumbnail" src="../static/loading.gif"></div>
+                <div class="col text-center"><img style="border: 2px solid var(--primary);" class=" img-fluid track__thumbnail" src="../static/loading.gif"></div>
             </div>
             <div class="row">
                 <div class="col">
@@ -60,7 +53,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <p style="margin-bottom: .2rem" class="track__artist"></p>
+                            <p style="margin-bottom: .2rem" class="track__artist">Loading, Please wait</p>
                         </div>
                     </div>
                 </div>
@@ -82,9 +75,9 @@
                         <div class="col-md-12" style="height: 10px;">
                             <div></div>
                         </div>
-                        <div class="col fs-4 text-end align-self-center" id="prev"><i class="fa fa-step-backward fs-4 text-end"></i></div>
-                        <div class="col fs-4 text-center align-self-center" id="play"><button class="btn btn-link btn-circle" style="border-radius: 50px;background: var(--bs-white);border: .1px solid black;" type="button"><i class="fa fa-play" style="color: var(--bs-gray-900);font-size: 30px;margin-left: 6px;"></i></button></div>
-                        <div class="col fs-4 text-start align-self-center" id="next"><i class="fa fa-step-forward fs-4 text-end"></i></div>
+                        <div class="col fs-4 text-end align-self-center" id="prev"><i style="color: var(--primary)" class="fa fa-step-backward fs-4 text-end"></i></div>
+                        <div class="col fs-4 text-center align-self-center" id="play"><button class="btn btn-link btn-circle" style="border-radius: 50px;background: var(--secondary );border: .1px solid var(--primary);" type="button"><i class="fa fa-play" style="color: var(--primary);font-size: 30px;margin-left: 6px;"></i></button></div>
+                        <div class="col fs-4 text-start align-self-center" id="next"><i style="color: var(--primary)" class="fa fa-step-forward fs-4 text-end"></i></div>
                     </div>
                 </div>
             </div>
