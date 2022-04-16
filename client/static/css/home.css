@@ -11,7 +11,7 @@ body, html, * {
 
 body {
     background-image: url('../background.png');
-    background-blend-mode: multiply;
+    background-blend-mode: darken;
     background-repeat: repeat;
     background-color: var(--level0);
     color: var(--text);
