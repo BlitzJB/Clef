@@ -9,6 +9,7 @@ export class Player {
         this.currentId = null;
         this.recom = null;
         this.ispaused = true;
+        this.islooping = false;
         this.getAudioElement();
         this.initialLoad();
 
@@ -19,6 +20,7 @@ export class Player {
             prev: document.querySelector('#prev'),
             next: document.querySelector('#next'),
             play: document.querySelector('#play'),
+            loop: document.querySelector('#loop'),
             recommendations: document.querySelector('#recommendations'),
             progressBar: document.querySelector('#prog'),
             currentTime: document.querySelector('#currenttimestamp'),
@@ -40,6 +42,16 @@ export class Player {
             } else {
                 this.pause();
                 this.UI.play.innerHTML = '<div class="col fs-4 text-center align-self-center" id="play"><button class="btn btn-link btn-circle" style="border-radius: 50px;background: var(--secondary );border: .1px solid var(--primary);" type="button"><i class="fa fa-play" style="color: var(--primary);font-size: 30px;margin-left: 6px;"></i></button></div>';
+            }
+        })
+
+        this.UI.loop.addEventListener('click', () => {
+            if (this.islooping) {
+                this.UI.loop.innerHTML = '<div class="col fs-4 text-end align-self-center" id="loop"><i style="color: var(--primary); padding: 10px; padding-top: 12px; border-radius: 100vh" class="fa fa-repeat fs-4 text-end"></i></div>';
+                this.islooping = false;
+            } else {
+                this.UI.loop.innerHTML = '<div class="col fs-4 text-end align-self-center" id="loop"><i style="color: var(--primary); padding: 10px; padding-top: 12px; border-radius: 100vh; background-color: rgba(188, 188, 188, 0.2)" class="fa fa-repeat fs-4 text-end"></i></div>';
+                this.islooping = true;
             }
         })
 
@@ -160,6 +172,12 @@ export class Player {
     }
 
     handleEnd() {
+        if (this.islooping) {
+            this.audio.src = this.cache.current.blobUrl;
+            this.audio.load();
+            return
+        } 
+
         if (this.cache.last.blobUrl) {
             URL.revokeObjectURL(this.cache.last.blobUrl);
         }
@@ -192,6 +210,8 @@ export class Player {
     }
 
     handleNext() {
+        this.islooping = false;
+        this.UI.loop.innerHTML = '<div class="col fs-4 text-end align-self-center" id="loop"><i style="color: var(--primary); padding: 10px; padding-top: 12px; border-radius: 100vh" class="fa fa-repeat fs-4 text-end"></i></div>';
         this.handleEnd();
     }
 
