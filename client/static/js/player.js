@@ -87,7 +87,6 @@ export class Player {
         
 
         this.currentId = getQueryVariable('id');
-
         // get recommendations from the api
         fetch(`${this.baseurl}recommendations?video_id=${this.currentId}`)
             .then(response => response.json())
@@ -99,6 +98,7 @@ export class Player {
                     this.cache.current.blobUrl = blobUrl;
                     this.audio.src = this.cache.current.blobUrl;
                     this.UI.download.href = this.cache.current.blobUrl;
+                    this.UI.download.classList.remove('disabled');
                     this.audio.load();
                     console.log(this.recom[this.cache.current.index].title);
                     this.updateUI(this.recom[this.cache.current.index]);
