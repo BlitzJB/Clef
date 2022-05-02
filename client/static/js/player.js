@@ -24,7 +24,8 @@ export class Player {
             recommendations: document.querySelector('#recommendations'),
             progressBar: document.querySelector('#prog'),
             currentTime: document.querySelector('#currenttimestamp'),
-            totalTime: document.querySelector('#totaltimestamp')
+            totalTime: document.querySelector('#totaltimestamp'),
+            download: document.querySelector('#download')
         }
 
         this.UI.prev.addEventListener('click', () => {
@@ -97,6 +98,7 @@ export class Player {
                 this.downloadIndex(this.cache.current.index, (blobUrl) => {
                     this.cache.current.blobUrl = blobUrl;
                     this.audio.src = this.cache.current.blobUrl;
+                    this.UI.download.href = this.cache.current.blobUrl;
                     this.audio.load();
                     console.log(this.recom[this.cache.current.index].title);
                     this.updateUI(this.recom[this.cache.current.index]);
@@ -174,6 +176,7 @@ export class Player {
     handleEnd() {
         if (this.islooping) {
             this.audio.src = this.cache.current.blobUrl;
+            this.UI.download.href = this.cache.current.blobUrl;
             this.audio.load();
             return
         } 
@@ -193,10 +196,12 @@ export class Player {
             this.downloadIndex(this.cache.current.index, (blobUrl) => {
                 this.cache.current.blobUrl = blobUrl;
                 this.audio.src = this.cache.current.blobUrl;
+                this.UI.download.href = this.cache.current.blobUrl;
                 this.audio.load();
             })
         } else {
             this.audio.src = this.cache.current.blobUrl;
+            this.UI.download.href = this.cache.current.blobUrl;
             this.audio.load();
         }
         this.updateUI(this.recom[this.cache.current.index]);
@@ -225,11 +230,13 @@ export class Player {
         
         if (this.cache.current.blobUrl) {
             this.audio.src = this.cache.current.blobUrl;
+            this.UI.download.href = this.cache.current.blobUrl;
             this.audio.load();
         } else {
             this.downloadIndex(this.cache.current.index, (blobUrl) => {
                 this.cache.current.blobUrl = blobUrl;
                 this.audio.src = this.cache.current.blobUrl;
+                this.UI.download.href = this.cache.current.blobUrl;
                 this.audio.load();
             })
         }
@@ -270,6 +277,7 @@ export class Player {
         this.downloadIndex(this.cache.current.index, (blobUrl) => {
             this.cache.current.blobUrl = blobUrl;
             this.audio.src = this.cache.current.blobUrl;
+            this.UI.download.href = this.cache.current.blobUrl;
             this.audio.load();
             this.updateUI(this.recom[index]);
         })

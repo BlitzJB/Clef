@@ -99,3 +99,10 @@ li {list-style: none;}
 .search-bar {
     width: 75vw;
 }
+
+#download {
+    font-size: 2rem;
+    color: var(--primary);
+    padding: 15px;
+    padding-left: 10px;
+}
