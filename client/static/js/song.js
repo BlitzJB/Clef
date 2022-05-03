@@ -23,4 +23,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    const more_actions = document.querySelector('.action-more')
+    more_actions.addEventListener('click', () => {
+        const actions = document.querySelector('.actions-list')
+        if (actions.classList.contains('hidden')) {
+            actions.classList.remove('hidden')
+        } else {
+            actions.classList.add('hidden')
+        }
+    })
+
+    document.getElementById('vol').addEventListener('click', () => {
+        document.getElementById('vol-input').classList.toggle('hidden')
+    })
+
+    document.getElementById('vol-input').addEventListener('input', (e) => {
+        player.setVolume(e.target.value/100)
+    })
 })

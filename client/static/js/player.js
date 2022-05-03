@@ -48,10 +48,10 @@ export class Player {
 
         this.UI.loop.addEventListener('click', () => {
             if (this.islooping) {
-                this.UI.loop.innerHTML = '<div class="col fs-4 text-end align-self-center" id="loop"><i style="color: var(--primary); padding: 10px; padding-top: 12px; border-radius: 100vh" class="fa fa-repeat fs-4 text-end"></i></div>';
+                this.UI.loop.innerHTML = '<i class="fa fa-repeat fs-4 text-end"></i> Loop off';
                 this.islooping = false;
             } else {
-                this.UI.loop.innerHTML = '<div class="col fs-4 text-end align-self-center" id="loop"><i style="color: var(--primary); padding: 10px; padding-top: 12px; border-radius: 100vh; background-color: rgba(188, 188, 188, 0.2)" class="fa fa-repeat fs-4 text-end"></i></div>';
+                this.UI.loop.innerHTML = '<i class="fa fa-repeat fs-4 text-end"></i> Looping!';
                 this.islooping = true;
             }
         })
@@ -172,6 +172,10 @@ export class Player {
         this.audio.play();
         this.ispaused = false;
     }
+    
+    setVolume(volume) {
+        this.audio.volume = volume;
+    }
 
     handleEnd() {
         if (this.islooping) {
@@ -216,7 +220,7 @@ export class Player {
 
     handleNext() {
         this.islooping = false;
-        this.UI.loop.innerHTML = '<div class="col fs-4 text-end align-self-center" id="loop"><i style="color: var(--primary); padding: 10px; padding-top: 12px; border-radius: 100vh" class="fa fa-repeat fs-4 text-end"></i></div>';
+        this.UI.loop.innerHTML = '<i class="fa fa-repeat fs-4 text-end"></i> Loop off';
         this.handleEnd();
     }
 

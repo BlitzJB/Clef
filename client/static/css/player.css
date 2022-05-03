@@ -101,12 +101,55 @@ li {list-style: none;}
 }
 
 #download {
-    font-size: 2rem;
     color: var(--primary);
-    padding: 15px;
-    padding-left: 10px;
 }
 
 .disabled {
     pointer-events: none;
   }
+
+.action-more {
+    width: fit-content;
+    margin-left: auto;
+    padding: 8px 25px;
+    border-radius: 15px;
+    font-size: 2rem;
+    color: var(--primary);
+    cursor: pointer;
+    position: relative;
+}
+
+.actions-list {
+    font-size: 1.5rem;
+    position: absolute;
+    top: 85%;
+    left: -10vw;
+    background-color: var(--level1);
+    padding: 2vw;
+    width: max-content;
+    border-radius: 15px;
+    border: 2px solid var(--level2);    
+}
+
+.actions-list li {
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.actions-list li:hover {
+    background-color: rgba(255, 255, 255, 0.099);
+    border-radius: 15px;
+}
+
+.action-more:hover {
+    background-color: var(--level2);
+}
+
+.loop-icon {
+    color: var(--level2);
+}
+
+#vol {
+    cursor: pointer;
+}
