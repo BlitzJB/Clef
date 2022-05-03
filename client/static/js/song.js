@@ -42,9 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     document.getElementById('share').addEventListener('click', () => {
-        document.getElementById('share').innerHTML = 'Copied Link!'
+        document.getElementById('share').innerHTML = '<span style="font-size:.5rem">Copied Link!</span>'
         setTimeout(() => {
-            document.getElementById('share').innerHTML = '<i class="fas fa-share"></i>'
+            document.getElementById('share').innerHTML = '<i class="fa fa-share"></i>'
         }, 1000)
         navigator.clipboard.writeText(window.location.href.replace('/song', '/share'))
     })

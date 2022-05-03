@@ -12,7 +12,7 @@ def __song():
     return render_template('player.html')
 
 @app.route('/search')
-def __search():
+def __search():    
     return render_template('search.html')
 
 @app.route('/share')
