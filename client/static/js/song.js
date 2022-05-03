@@ -40,4 +40,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('vol-input').addEventListener('input', (e) => {
         player.setVolume(e.target.value/100)
     })
+
+    document.getElementById('share').addEventListener('click', () => {
+        document.getElementById('share').innerHTML = 'Copied Link!'
+        setTimeout(() => {
+            document.getElementById('share').innerHTML = '<i class="fas fa-share"></i>'
+        }, 1000)
+        navigator.clipboard.writeText(window.location.href.replace('/song', '/share'))
+    })
 })
