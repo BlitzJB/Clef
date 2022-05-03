@@ -152,4 +152,15 @@ li {list-style: none;}
 
 #vol {
     cursor: pointer;
+    position: relative;
+}
+
+.vol-input_container {
+    position: absolute;
+    top: -6px;
+    right: 60px;
+    padding: 10px;
+    background-color: var(--level2);
+    border-radius: 15px;
+    border: 1px solid var(--primary);
 }

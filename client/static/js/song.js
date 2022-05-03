@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     document.getElementById('vol').addEventListener('click', () => {
-        document.getElementById('vol-input').classList.toggle('hidden')
+        document.querySelector('.vol-input_container').classList.toggle('hidden')
     })
 
     document.getElementById('vol-input').addEventListener('input', (e) => {
