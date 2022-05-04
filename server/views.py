@@ -1,6 +1,7 @@
 from .app import app
+from .embed_data import embed_data
 
-from flask import render_template, send_from_directory
+from flask import render_template, send_from_directory, redirect, url_for, request
 
 @app.route('/')
 def __index():
@@ -11,10 +12,19 @@ def __song():
     return render_template('player.html')
 
 @app.route('/search')
-def __search():
+def __search():    
     return render_template('search.html')
 
+@app.route('/share')
+def __share():
+    _id = request.args.get('id')
+    if 'Discordbot' in request.headers.get('User-Agent') or 'WhatsApp' in request.headers.get('User-Agent'):
+        return render_template('graph_embed.html', data=embed_data(_id))
+        
+    if not _id:
+        return redirect(url_for('__index'))
 
+    return redirect(url_for('__song') + f'?id={_id}')
 # ------------To serve manifest.json and sw.js placed at-----------------
 # --------unconventional locations to improove maintainablity------------
 

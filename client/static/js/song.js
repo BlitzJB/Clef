@@ -41,4 +41,12 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("vol-input").addEventListener("input", (e) => {
         player.setVolume(e.target.value / 100);
     });
+
+    document.getElementById("share").addEventListener("click", () => {
+        document.getElementById("share").innerHTML = '<span style="font-size:.5rem">Copied Link!</span>';
+        setTimeout(() => {
+            document.getElementById("share").innerHTML = '<i class="fa fa-share"></i>';
+        }, 1000);
+        navigator.clipboard.writeText(window.location.href.replace("/song", "/share"));
+    });
 });
