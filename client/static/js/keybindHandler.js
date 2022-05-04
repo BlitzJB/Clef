@@ -21,8 +21,10 @@ export class KeyBindHandler {
             if (this.keybinds["ArrowUp"]) {
                 // TODO: display current volume
                 // TODO: make clicky sounds when changing volume
+                e.preventDefault();
                 this.player.setVolume(this.player.audio.volume + 0.1);
             } else if (this.keybinds["ArrowDown"]) {
+                e.preventDefault();
                 this.player.setVolume(this.player.audio.volume - 0.1);
             } else if (this.keybinds["ArrowLeft"]) {
                 this.player.audio.currentTime -= 5;
