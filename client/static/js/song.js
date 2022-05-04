@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.getElementById("share").addEventListener("click", () => {
-        document.getElementById("share").innerHTML = '<span style="font-size:.5rem">Copied Link!</span>';
+        document.getElementById("share").innerHTML = '<span style="font-size: .8em; position: absolute; top: -22px; left:-20px; width: max-content; padding: 7px 10px; background-color: rgba(40,40,40,.5); border: 1px solid rgba(180,180,180,.5); border-radius: 10px">Copied Link!</span>';
         setTimeout(() => {
             document.getElementById("share").innerHTML = '<i class="fa fa-share"></i>';
         }, 1000);
