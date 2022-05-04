@@ -7,7 +7,7 @@ export class Player {
         this.currentId = null;
         this.recom = null;
         this.ispaused = true;
-        this.islooping = false;
+        this._islooping = false;
         this.getAudioElement();
         this.initialLoad();
 
@@ -78,6 +78,20 @@ export class Player {
             },
         };
         parent.appendChild(this.audio);
+    }
+
+    // Use setter and getter to automatically updated UI whenever looping value is changed
+    set islooping(value) {
+        this._islooping = value;
+        if (!value) {
+            this.UI.loop.innerHTML = '<i class="fa fa-repeat fs-4 text-end"></i> Loop off';
+        } else {
+            this.UI.loop.innerHTML = '<i class="fa fa-repeat fs-4 text-end"></i> Looping!';
+        }
+    }
+
+    get islooping() {
+        return this._islooping;
     }
 
     initialLoad() {
