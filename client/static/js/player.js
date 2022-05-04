@@ -7,7 +7,7 @@ export class Player {
         this.currentId = null;
         this.recom = null;
         this.ispaused = true;
-        this.islooping = false;
+        this._islooping = false;
         this.getAudioElement();
         this.initialLoad();
 
@@ -19,6 +19,9 @@ export class Player {
             next: document.querySelector("#next"),
             play: document.querySelector("#play"),
             loop: document.querySelector("#loop"),
+            volume: document.querySelector("#vol"),
+            volumeInput: document.querySelector("#vol-input"),
+            volumeInputContainer: document.querySelector(".vol-input_container"),
             recommendations: document.querySelector("#recommendations"),
             progressBar: document.querySelector("#prog"),
             currentTime: document.querySelector("#currenttimestamp"),
@@ -46,6 +49,13 @@ export class Player {
             }
         });
 
+        this.UI.volume.addEventListener("click", () => {
+            this.UI.volumeInputContainer.classList.toggle("hidden");
+        });
+        this.UI.volumeInput.addEventListener("input", (e) => {
+            this.setVolume(e.target.value / 100, true);
+        });
+
         this.UI.progressBar.addEventListener("change", (e) => {
             const percentage = e.target.value;
             const totalTime = this.audio.duration;
@@ -68,6 +78,20 @@ export class Player {
             },
         };
         parent.appendChild(this.audio);
+    }
+
+    // Use setter and getter to automatically updated UI whenever looping value is changed
+    set islooping(value) {
+        this._islooping = value;
+        if (!value) {
+            this.UI.loop.innerHTML = '<i class="fa fa-repeat fs-4 text-end"></i> Loop off';
+        } else {
+            this.UI.loop.innerHTML = '<i class="fa fa-repeat fs-4 text-end"></i> Looping!';
+        }
+    }
+
+    get islooping() {
+        return this._islooping;
     }
 
     initialLoad() {
@@ -169,15 +193,30 @@ export class Player {
         this.ispaused = false;
     }
 
-    setVolume(volume) {
+    setVolume(volume, updated = false) {
         // Handle outrageous volume
         if (volume > 1) {
             volume = 1;
         } else if (volume < 0) {
             volume = 0;
         }
-        // console.log(volume);
         this.audio.volume = volume;
+        if (!updated) {
+            this.UI.volumeInput.value = volume * 100;
+            // Show volume input
+            this.UI.volumeInputContainer.classList.remove("hidden");
+
+            // Clear out old updates
+            if (this.volumeHideTimeout) {
+                clearTimeout(this.volumeHideTimeout);
+            }
+
+            // Hide volume input after a 2 seconds
+            this.volumeHideTimeout = setTimeout(() => {
+                this.UI.volumeInputContainer.classList.add("hidden");
+                this.volumeHideTimeout = null;
+            }, 2000);
+        }
     }
 
     handleEnd() {
@@ -312,22 +351,22 @@ export class Player {
         this.recom.forEach((song, index) => {
             let li = document.createElement("li");
             li.innerHTML = `<div class="row" style="padding: 0px;border-color: var(--bs-body-color)">
-                            <div class="col-auto"><img src="${song.thumbnail.mini}" width="60"></div>
-                            <div class="col">
-                                <div class="row">
-                                    <div class="col-10" style="padding-right: 0;">
-                                        <h5>${this.trimString(song.title)}</h5>
-                                    </div>
-                                    <div class="col-2 text-end align-self-center" style="padding: 0;"><i class="fa fa-play fs-4 text-start go"></i></div>
-                                    <div class="col-10" style="padding-right: 0;">
-                                        <p style="font-size: 13px;">${this.trimString(song.artists.join(", "))}</p>
-                                    </div>
-                                    <div class="col-2" style="padding: 0;">
-                                        <p class="text-end" style="padding: 0;">${song.length}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>`;
+<div class="col-auto"><img src="${song.thumbnail.mini}" width="60"></div>
+<div class="col">
+<div class="row">
+<div class="col-10" style="padding-right: 0;">
+<h5>${this.trimString(song.title)}</h5>
+</div>
+<div class="col-2 text-end align-self-center" style="padding: 0;"><i class="fa fa-play fs-4 text-start go"></i></div>
+<div class="col-10" style="padding-right: 0;">
+<p style="font-size: 13px;">${this.trimString(song.artists.join(", "))}</p>
+</div>
+<div class="col-2" style="padding: 0;">
+<p class="text-end" style="padding: 0;">${song.length}</p>
+</div>
+</div>
+</div>
+</div>`;
             li.classList.add("recommendation");
             li.addEventListener("click", () => {
                 this.handlePlayFromList(index);
